@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "title": "Complete React Dashboard",
+    "description": "Finish the dashboard layout and connect it with the task data.",
+    "category": "Work",
+    "priority": "High",
+    "status": "In Progress",
+    "dueDate": "2026-07-03"
+  },
+  {
+    "id": 2,
+    "title": "Buy Groceries",
+    "description": "Milk, Eggs, Bread, Rice, Vegetables, and Fruits.",
+    "category": "Personal",
+    "priority": "Medium",
+    "status": "Pending",
+    "dueDate": "2026-07-02"
+  },
+  {
+    "id": 3,
+    "title": "Morning Workout",
+    "description": "30 minutes of cardio and 20 minutes of strength training.",
+    "category": "Health",
+    "priority": "High",
+    "status": "Completed",
+    "dueDate": "2026-07-01"
+  },
+  {
+    "id": 4,
+    "title": "Read Clean Code",
+    "description": "Read Chapter 5 and take notes.",
+    "category": "Learning",
+    "priority": "Low",
+    "status": "Pending",
+    "dueDate": "2026-07-05"
+  },
+  {
+    "id": 5,
+    "title": "Update Portfolio",
+    "description": "Add the latest internship experience and new React projects.",
+    "category": "Career",
+    "priority": "High",
+    "status": "In Progress",
+    "dueDate": "2026-07-04"
+  },
+  {
+    "id": 6,
+    "title": "Pay Electricity Bill",
+    "description": "Pay the monthly electricity bill online.",
+    "category": "Personal",
+    "priority": "Medium",
+    "status": "Pending",
+    "dueDate": "2026-07-06"
+  },
+  {
+    "id": 7,
+    "title": "Practice DSA",
+    "description": "Solve 3 medium-level LeetCode problems.",
+    "category": "Learning",
+    "priority": "High",
+    "status": "In Progress",
+    "dueDate": "2026-07-02"
+  },
+  {
+    "id": 8,
+    "title": "Team Meeting",
+    "description": "Attend the weekly sprint planning meeting.",
+    "category": "Work",
+    "priority": "Medium",
+    "status": "Completed",
+    "dueDate": "2026-07-01"
+  },
+  {
+    "id": 9,
+    "title": "Call Parents",
+    "description": "Catch up with family in the evening.",
+    "category": "Personal",
+    "priority": "Low",
+    "status": "Pending",
+    "dueDate": "2026-07-01"
+  },
+  {
+    "id": 10,
+    "title": "Prepare Interview Questions",
+    "description": "Revise JavaScript, React, and Node.js interview topics.",
+    "category": "Career",
+    "priority": "High",
+    "status": "Pending",
+    "dueDate": "2026-07-07"
+  }
+]
