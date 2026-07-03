@@ -1,42 +1,105 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useTasks } from '../hooks/useTasks.js'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTasks } from "../hooks/useTasks.js";
 
 const initialForm = {
-  title: '',
-  description: '',
-  category: '',
-  priority: 'Low',
-  status: 'Pending',
-  dueDate: '',
-}
+  title: "",
+  description: "",
+  category: "",
+  priority: "Low",
+  status: "Pending",
+  dueDate: "",
+};
 
 function AddTask() {
-  const navigate = useNavigate()
-  const { addTask } = useTasks()
+  const navigate = useNavigate();
+  const { addTask } = useTasks();
 
-  
-  const [formData, setFormData] = useState(initialForm)             // this state variable holds the current values of the form fields. 
+  const [formData, setFormData] = useState(initialForm);
+  const [errors, setErrors] = useState({});
 
-  // the below function runs when user type in the form.
+  // Handles input changes
   function handleChange(event) {
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
-    })
+    });
+
+    // Remove error while typing
+    setErrors({
+      ...errors,
+      [event.target.name]: "",
+    });
   }
 
-  // Runs when the form is submitted
+  // Handles form submission
   function handleSubmit(event) {
-    event.preventDefault() // Prevents page refresh
+    event.preventDefault();
 
-    addTask(formData) // Adds the task
-    setFormData(initialForm) // Clears the form
-    navigate('/total-tasks') // Goes to Total Tasks page once gets updated value from task provider context.
+    let newErrors = {};
+
+    // Title Validation (5-15 characters)
+    if (!formData.title.trim()) {
+      newErrors.title = "Title is required";
+    } else if (
+      formData.title.trim().length < 5 ||
+      formData.title.trim().length > 15
+    ) {
+      newErrors.title = "Title must be between 5 and 15 characters";
+    }
+
+    // Description Validation (15-25 characters)
+    if (!formData.description.trim()) {
+      newErrors.description = "Description is required";
+    } else if (
+      formData.description.trim().length < 15 ||
+      formData.description.trim().length > 25
+    ) {
+      newErrors.description =
+        "Description must be between 15 and 25 characters";
+    }
+
+    // Category Validation (3-8 characters)
+    if (!formData.category.trim()) {
+      newErrors.category = "Category is required";
+    } else if (
+      formData.category.trim().length < 3 ||
+      formData.category.trim().length > 8
+    ) {
+      newErrors.category = "Category must be between 3 and 8 characters";
+    }
+
+    // Due Date Validation
+    if (!formData.dueDate) {
+      newErrors.dueDate = "Due date is required";
+    } else {
+      const today = new Date().toISOString().split("T")[0];
+
+      if (formData.dueDate < today) {
+        newErrors.dueDate = "Due date cannot be in the past";
+      }
+    }
+
+    setErrors(newErrors);
+
+    // Stop submission if errors exist
+    if (Object.keys(newErrors).length > 0) {
+      return;
+    }
+
+    // Add task
+    addTask(formData);
+
+    // Reset form
+    setFormData(initialForm);
+    setErrors({});
+
+    // Navigate to Total Tasks
+    navigate("/total-tasks");
   }
 
   return (
-    <section className=" add-task-page">
+    <section className="add-task-page">
       <h2>Add New Task</h2>
 
       <form className="form" onSubmit={handleSubmit}>
@@ -48,8 +111,8 @@ function AddTask() {
           type="text"
           value={formData.title}
           onChange={handleChange}
-          
         />
+        {errors.title && <p className="error">{errors.title}</p>}
 
         {/* Description */}
         <label htmlFor="description">Description</label>
@@ -59,8 +122,10 @@ function AddTask() {
           type="text"
           value={formData.description}
           onChange={handleChange}
-          
         />
+        {errors.description && (
+          <p className="error">{errors.description}</p>
+        )}
 
         {/* Category */}
         <label htmlFor="category">Category</label>
@@ -70,8 +135,8 @@ function AddTask() {
           type="text"
           value={formData.category}
           onChange={handleChange}
-          
         />
+        {errors.category && <p className="error">{errors.category}</p>}
 
         {/* Priority */}
         <label htmlFor="priority">Priority</label>
@@ -107,16 +172,15 @@ function AddTask() {
           type="date"
           value={formData.dueDate}
           onChange={handleChange}
-          
         />
+        {errors.dueDate && <p className="error">{errors.dueDate}</p>}
 
-        <button className="button button-primary" 
-        type="submit">
+        <button className="button button-primary" type="submit">
           Add Task
         </button>
       </form>
     </section>
-  )
+  );
 }
 
-export default AddTask
+export default AddTask;

@@ -101,6 +101,13 @@
   outline: 3px solid rgba(15, 118, 110, 0.18);
 }
 
+.error {
+  color: #b91c1c;
+  font-size: 13px;
+  font-weight: 600;
+  margin: -4px 0 4px;
+}
+
 .button,
 .icon-button {
   align-items: center;

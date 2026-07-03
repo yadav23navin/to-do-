@@ -6,7 +6,9 @@ import AppRoutes from './routes/AppRoutes.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    {/* checks the current URL and renders the appropriate component based on the defined routes in AppRoutes.jsx */}
     <BrowserRouter>
+      {/* renders the AppRoutes component, which contains the routing logic for the application */}
       <AppRoutes />
     </BrowserRouter>
   </StrictMode>,

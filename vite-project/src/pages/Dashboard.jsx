@@ -13,7 +13,9 @@ function Dashboard() {
         </Link>
       </div>
 
-      <section className="summary-grid" aria-label="Task summary">
+      <section 
+            className="summary-grid" 
+            aria-label="Task summary">
         <TotalTasks showList={false} />
         <PendingTask showList={false} />
         <CompletedTasks showList={false} />
