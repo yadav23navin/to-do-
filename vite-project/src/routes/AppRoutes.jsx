@@ -9,13 +9,13 @@ import PendingTask from '../pages/PendingTask.jsx'
 import CompletedTasks from '../pages/CompletedTasks.jsx'
 import MainLayout from '../Layout/MainLayout.jsx'
 import TasksProvider from '../hooks/TasksProvider.jsx'  //provide task context to all 
-import AddTasks from '../pages/AddTasks.jsx'            
+import AddTasks from '../pages/AddTasks.jsx'   
+import EditTask from '../pages/EditTasks.jsx'         
 
 
 function ProtectedRoute({ children }) {
-  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'
-
-  if (!isLoggedIn) {
+  const token = localStorage.getItem('token') 
+  if (!token) {
     return <Navigate to="/login" replace />
   }
 
@@ -44,6 +44,7 @@ function AppRoutes() {
         <Route path="/completed-tasks" element={<CompletedTasks />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/add-tasks" element={<AddTasks />} />
+        <Route path="/edit-task/:id" element={<EditTask />} />
       </Route>
 
       

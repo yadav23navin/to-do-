@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTasks } from "../hooks/useTasks.js";
+import RichTextEditor from "../components/RichTextEditor.jsx";
 
 const initialForm = {
   title: "",
@@ -33,23 +34,28 @@ function AddTask() {
   }
 
   // Handles form submission
-  function handleSubmit(event) {
+   async function handleSubmit(event) {
     event.preventDefault();
 
     let newErrors = {};
+
+     // Convert HTML from Tiptap into plain text
+  const plainDescription = formData.description
+    .replace(/<[^>]*>/g, "")
+    .trim();
 
     // Title Validation (5-15 characters)
     if (!formData.title.trim()) {
       newErrors.title = "Title is required";
     } else if (
       formData.title.trim().length < 5 ||
-      formData.title.trim().length > 15
+      formData.title.trim().length > 30
     ) {
-      newErrors.title = "Title must be between 5 and 15 characters";
+      newErrors.title = "Title must be between 5 and 30 characters";
     }
 
     // Description Validation (15-25 characters)
-    if (!formData.description.trim()) {
+    {/*if (!formData.description.trim()) {
       newErrors.description = "Description is required";
     } else if (
       formData.description.trim().length < 15 ||
@@ -57,16 +63,26 @@ function AddTask() {
     ) {
       newErrors.description =
         "Description must be between 15 and 25 characters";
-    }
+    } */}
+     // Description Validation
+if (!plainDescription) {
+  newErrors.description = "Description is required";
+} else if (
+  plainDescription.length < 10 ||
+  plainDescription.length > 100
+) {
+  newErrors.description =
+    "Description must be between 10 and 100 characters";
+}
 
-    // Category Validation (3-8 characters)
+    // Category Validation (2-20 characters)
     if (!formData.category.trim()) {
       newErrors.category = "Category is required";
     } else if (
-      formData.category.trim().length < 3 ||
-      formData.category.trim().length > 8
+      formData.category.trim().length < 2 ||
+      formData.category.trim().length > 20
     ) {
-      newErrors.category = "Category must be between 3 and 8 characters";
+      newErrors.category = "Category must be between 2 and 20 characters";
     }
 
     // Due Date Validation
@@ -88,7 +104,7 @@ function AddTask() {
     }
 
     // Add task
-    addTask(formData);
+    await addTask(formData);
 
     // Reset form
     setFormData(initialForm);
@@ -115,14 +131,27 @@ function AddTask() {
         {errors.title && <p className="error">{errors.title}</p>}
 
         {/* Description */}
-        <label htmlFor="description">Description</label>
+        {/*<label htmlFor="description">Description</label>
         <input
           id="description"
           name="description"
           type="text"
           value={formData.description}
           onChange={handleChange}
-        />
+        /> */}
+        <label>Description</label>
+
+<RichTextEditor
+  value={formData.description}
+  onChange={(value) => {
+    console.log(value);
+
+    setFormData({
+      ...formData,
+      description: value,
+    });
+  }}
+/>
         {errors.description && (
           <p className="error">{errors.description}</p>
         )}
