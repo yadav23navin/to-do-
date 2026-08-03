@@ -11,6 +11,7 @@ function Register() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,6 +32,7 @@ function Register() {
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
 
+    setSubmitting(true);
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
         method: 'POST',
@@ -44,9 +46,11 @@ function Register() {
         return
       }
 
-      navigate("/login");
+      navigate("/verify-otp", { state: { email: email.trim().toLowerCase() } });
     } catch (err) {
       setErrors({ email: 'Could not connect to server' })
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -83,7 +87,9 @@ function Register() {
           </div>
           {errors.password && <p className="error">{errors.password}</p>}
 
-          <button className="button button-primary" type="submit">Register</button>
+          <button className="button button-primary" type="submit" disabled={submitting}>
+            {submitting ? 'Sending code...' : 'Register'}
+          </button>
         </form>
       </section>
     </main>
