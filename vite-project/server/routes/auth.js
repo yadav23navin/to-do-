@@ -262,6 +262,7 @@ router.post("/forgot-password", forgotPasswordLimiter, async (req, res) => {
 
     res.status(200).json(genericResponse);
   } catch (err) {
+    console.error("forgot-password error:", err);
     res.status(500).json({ message: "Could not process request", error: err.message });
   }
 });
