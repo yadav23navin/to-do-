@@ -997,3 +997,57 @@
 .password-toggle:hover {
   color: var(--text-color);
 }
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-summary {
+  position: relative;
+  overflow: hidden;
+}
+
+.summary-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #ffffff;
+  margin-bottom: 14px;
+}
+
+.summary-icon-total {
+  background: linear-gradient(135deg, #0f766e, #14b8a6);
+}
+
+.summary-icon-pending {
+  background: linear-gradient(135deg, #d97706, #f59e0b);
+}
+
+.summary-icon-completed {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+}
+
+.task-count {
+  font-size: 40px;
+}
+
+.empty-state {
+  background: var(--card-bg);
+  border: 1px dashed var(--card-border);
+  border-radius: 12px;
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+.empty-state p {
+  margin: 0 0 16px;
+  font-size: 15px;
+}
