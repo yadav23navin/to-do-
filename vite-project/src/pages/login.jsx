@@ -62,6 +62,9 @@ function Login() {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
+          <p style={{ textAlign: "right", marginTop: "0.25rem" }}>
+            <Link to="/forgot-password">Forgot password?</Link>
+          </p>
 
           {error && <p className="error">{error}</p>}
           <button className="button button-primary" type="submit">Login</button>
