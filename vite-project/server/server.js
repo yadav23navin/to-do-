@@ -1,8 +1,10 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const taskRoutes = require("./routes/tasks");
 const authRoutes = require("./routes/auth");
 const profileRoutes = require("./routes/profile");
+const contactRoutes = require("./routes/contact");
 
 const app = express();
 const PORT = 5000;
@@ -22,6 +24,7 @@ app.use(express.json());
 app.use("/api/tasks", taskRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes); 
+app.use("/api/contact", contactRoutes);
 
 // Basic root route, just to confirm the server is alive when visited directly.
 app.get("/", (req, res) => {
