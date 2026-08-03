@@ -33,4 +33,23 @@ CREATE TABLE tasks (
 );
 
 CREATE INDEX idx_tasks_user_id ON tasks(user_id);
+CREATE TABLE pending_registrations (
+    id              SERIAL PRIMARY KEY,
+    name            VARCHAR(100) NOT NULL,
+    email           VARCHAR(255) UNIQUE NOT NULL,
+    password_hash   VARCHAR(255) NOT NULL,
+    otp_hash        VARCHAR(255) NOT NULL,
+    otp_expires_at  TIMESTAMP NOT NULL,
+    attempt_count   INTEGER NOT NULL DEFAULT 0,
+    last_sent_at    TIMESTAMP NOT NULL DEFAULT NOW(),
+    created_at      TIMESTAMP DEFAULT NOW()
+);
 
+CREATE INDEX idx_pending_registrations_email ON pending_registrations(email);
+CREATE TABLE IF NOT EXISTS password_resets (
+  email VARCHAR(255) PRIMARY KEY REFERENCES users(email) ON DELETE CASCADE,
+  otp_hash TEXT NOT NULL,
+  otp_expires_at TIMESTAMP NOT NULL,
+  attempt_count INTEGER NOT NULL DEFAULT 0,
+  last_sent_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
